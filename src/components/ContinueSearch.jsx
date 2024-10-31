@@ -1,17 +1,19 @@
 import React from 'react';
 
-const ContinueSearch = ({ searchText, setSearchText, filters, handleSearch }) => {
+const ContinueSearch = ({ searchText, setSearchText, filters, handleSearch, updateFilter }) => {
   const handleClear = () => setSearchText('');
 
+  const handleClearFilter = (key) => {
+    // Reset the corresponding filter based on the key
+    updateFilter(key, '');
+  };
+
+  // Filter out the year filter bubbles
   const filterLabels = Object.entries(filters).map(([key, value]) => {
-    if (key === 'yearRange') {
-      return {
-        label: value[0] && value[1] ? `${value[0]}-${value[1]}` : '',
-        key,
-      };
-    }
+    // Exclude year filters from the bubbles
+    if (key === 'year') return null;
     return { label: value, key };
-  }).filter(filter => filter.label);
+  }).filter(filter => filter && filter.label); // Only include filters with non-empty labels
 
   return (
     <div className="flex flex-col space-y-4 w-full">

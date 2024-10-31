@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
-
+import { useRouter } from "next/router";
 export default function SearchSection() {
   const [selectedCategory, setSelectedCategory] = useState("Закон");
   const categories = [
@@ -10,7 +10,14 @@ export default function SearchSection() {
     "Дигитална безбедност",
     "Откри друго",
   ];
+  const router = useRouter();
+  const [searchText, setSearchText] = useState("");
 
+  const handleSearch = () => {
+    if (searchText.trim()) {
+      router.push(`/search?query=${encodeURIComponent(searchText.trim())}`);
+    }
+  };
   return (
     <div className="bg-red-800 text-white py-16 relative h-screen">
       <div
@@ -48,13 +55,15 @@ export default function SearchSection() {
               </select>
             </div>
             <input
-              type="text"
-              placeholder="Внеси клучни зборови"
-              className="py-3.5 px-8 w-full text-4xl rounded-xl text-black box-border focus:outline-none placeholder:font-bold"
-            />
-            <button className="py-6 px-8 bg-gray-200 text-black rounded-xl hover:bg-gray-300">
-              <FaSearch size={20} />
-            </button>
+        type="text"
+        placeholder="Внеси клучни зборови"
+        value={searchText}
+        onChange={(e) => setSearchText(e.target.value)}
+        className="py-3.5 px-8 w-full text-4xl rounded-xl text-black box-border focus:outline-none placeholder:font-bold"
+      />
+      <button onClick={handleSearch} className="py-6 px-8 bg-gray-200 text-black rounded-xl hover:bg-gray-300">
+        <FaSearch size={20} />
+      </button>
           </div>
         </div>
       </div>
