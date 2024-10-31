@@ -1,11 +1,13 @@
 import React from 'react'
-
+import { useRouter } from 'next/router';
 const aisearch = () => {
+    const router = useRouter();
+  const { title, description, timePublished } = router.query;
     return (
         <div className='w-full h-full flex'>
             <div className='w-[33%] bg-[#D9D9D9]  px-10 py-20 h-screen'>
                 <div className='flex'>
-                    <p className='text-[24px] font-bold'>ЗАКОН ЗА ЗАШТИТА НА ПРИРОДАТА</p>
+                    <p className='text-[24px] font-bold'>{title}</p>
                     <img src="/images/aiicon.png" className='w-[10%] h-[3%]' alt="aiicon" />
                 </div>
                 <p className='text-[20px] pt-10 font-semibold'>Краток опис на законот со помош на вештачка интелигенција:</p>
